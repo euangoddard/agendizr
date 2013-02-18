@@ -1,0 +1,3 @@
+# agendizr
+
+Rapid meeting templating

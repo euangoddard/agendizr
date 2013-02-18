@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="span9">
+    <input
+      type="text"
+      class="span9 input-heading"
+      ng-model="agenda.name"
+      required
+      placeholder="agenda name"
+    >
+    <h3>Objectives</h3>
+    <ul>
+      <li ng-repeat="objective in agenda.objectives" class="inline">
+        <input
+          type="text"
+          class="span7"
+          ng-model="objective.text"
+          placeholder="meeting objective"
+          ng-change="update_scope()"
+        >
+        <button
+          class="btn btn-danger"
+          ng-click="remove_objective($index)"
+          ng-disabled="!objective.text"
+        >
+          <i class="icon-white icon-trash"></i>
+        </button>
+      </li>
+    </ul>
+    <h3>Agenda</h3>
+    <ul>
+      <li ng-repeat="item in agenda.items" class="inline">
+        <input
+          type="text"
+          class="span6"
+          placeholder="agenda item"
+          ng-model="item.text"
+          ng-change="update_scope()"
+        >
+        <div class="input-append">
+          <input
+            type="number"
+            class="span1"
+            placeholder="time"
+            min="1"
+            ng-model="item.time"
+            ng-change="update_scope()"
+          >
+          <span class="add-on">min</span>
+        </div>
+        <button
+          class="btn btn-danger"
+          ng-click="remove_item($index)"
+          ng-disabled="!item.text"
+        >
+          <i class="icon-white icon-trash"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="span3">
+    <p class="muted">
+      <span ng-show="!is_saving">All changes saved</span>
+      <span ng-show="is_saving">Saving...</span>
+    </p>
+    <p>
+      <a
+        href="#/agendas/{{ agenda._id.$oid }}/view/"
+        class="btn btn-block btn-primary"
+      >View agenda</a>
+    </p>
+    <div class="well well-small">
+      <h6>Total time: {{ total_time|date:"H:mm" }}</h6>
+      
+    </div>
+  </div>
+</div>

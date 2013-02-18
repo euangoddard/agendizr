@@ -1,0 +1,23 @@
+<div class="hero-unit">
+  <h1>Welcome to agendizr</h1>
+  <p>Rapid meeting templating</p>
+  <form
+    ng-submit="create_agenda()"
+    class="form form-inline"
+    name="new_agenda_form"
+  >
+    <input
+      type="text"
+      ng-model="agenda.name"
+      placeholder="agenda name"
+      required
+    >
+    <button
+      class="btn btn-success"
+      type="submit"
+      ng-disabled="new_agenda_form.$invalid"
+    >
+      Create
+    </button>
+  </form>
+</div>

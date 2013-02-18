@@ -1,0 +1,9 @@
+input[type="text"].input-heading {
+    font-size: 31.5px;
+    line-height: 40px;
+    height: 40px;
+}
+.inline button {
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
