@@ -74,6 +74,7 @@ var EditAgendaController = function ($scope, $routeParams, $timeout, Agenda) {
             }
         });
         $scope.total_time = total_minutes * 60000;
+        vizualize_meeting($scope.agenda.items);
     };
     
     var remove_child_from_agenda = function (key) {
@@ -94,6 +95,7 @@ var EditAgendaController = function ($scope, $routeParams, $timeout, Agenda) {
 var ViewAgendaController = function ($scope, $routeParams, Agenda) {
     Agenda.get({id: $routeParams.id}, function (agenda) {
         $scope.agenda = agenda;
+        vizualize_meeting(agenda.items);
     });
 };
 
@@ -102,4 +104,20 @@ var ViewAgendaController = function ($scope, $routeParams, Agenda) {
 
 var get_current_timestamp = function () {
     return 1 * new Date();
+};
+
+var vizualize_meeting = function (agenda_items) {
+    var agenda_as_array = [['Agenda item', 'Time / min']];
+    angular.forEach(agenda_items, function (item) {
+        if (item && item.text && item.time) {
+            agenda_as_array.push([item.text, item.time]);
+        }
+    });
+    var data = google.visualization.arrayToDataTable(agenda_as_array);
+    var options = {
+        legend: {position: 'bottom'},
+        fontName: '"Helvetica Neue",Helvetica,Arial,sans-serif'};
+    var chart_element = document.getElementById('pie-chart');
+    var chart = new google.visualization.PieChart(chart_element);
+    chart.draw(data, options);
 };
