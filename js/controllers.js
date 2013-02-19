@@ -93,22 +93,6 @@ var EditAgendaController = function ($scope, $routeParams, $timeout, Agenda) {
 
 var ViewAgendaController = function ($scope, $routeParams, Agenda) {
     Agenda.get({id: $routeParams.id}, function (agenda) {
-        var objectives = agenda.objectives;
-        agenda.objectives = [];
-        angular.forEach(objectives, function (objective) {
-            if (objective && objective.text) {
-                agenda.objectives.push(objective);
-            }
-        });
-        
-        var items = agenda.items;
-        agenda.items = [];
-        angular.forEach(items, function (item) {
-            if (item && item.text) {
-                agenda.items.push(item);
-            }
-        });
-        
         $scope.agenda = agenda;
     });
 };

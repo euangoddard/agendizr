@@ -1,4 +1,7 @@
 (function () {
+    
+    'use strict';
+    
     var MONGOLAB_API_URL = 'https://api.mongolab.com/api/1/databases/agendizr/';
     
     var MONGOLAB_API_KEY = '50c48d11e4b012b961327393';
@@ -12,9 +15,26 @@
             );
             
             Agenda.prototype.update = function (callback) {
+                var agenda = angular.extend({}, this, {_id: undefined});
+                var objectives = agenda.objectives;
+                agenda.objectives = [];
+                angular.forEach(objectives, function (objective) {
+                    if (objective && objective.text) {
+                        agenda.objectives.push(objective);
+                    }
+                });
+                
+                var items = agenda.items;
+                agenda.items = [];
+                angular.forEach(items, function (item) {
+                    if (item && item.text) {
+                        agenda.items.push(item);
+                    }
+                });
+                
                 return Agenda.update(
                     {id: this._id.$oid},
-                    angular.extend({}, this, {_id: undefined}),
+                    agenda,
                     callback
                 );
             };
